@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from pathlib import Path
 
 
 # -----------------------------------
@@ -25,18 +26,26 @@ st.write(
 
 
 # -----------------------------------
+# Get Current Folder Path
+# -----------------------------------
+BASE_DIR = Path(__file__).resolve().parent
+
+
+# -----------------------------------
 # Load Dataset
 # -----------------------------------
 @st.cache_data
 def load_data():
-    return pd.read_csv("canada_per_capita_income.csv")
+    return pd.read_csv(
+        BASE_DIR / "canada_per_capita_income.csv"
+    )
 
 
 df = load_data()
 
 
 # -----------------------------------
-# Dataset Display
+# Display Dataset
 # -----------------------------------
 st.subheader("Canada Per Capita Income Dataset")
 
