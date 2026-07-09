@@ -24,75 +24,201 @@ st.set_page_config(
 st.markdown("""
 <style>
 
+/* Remove extra top spacing */
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 1200px;
+}
+
+
+/* Main App Background */
 .stApp {
-    background: linear-gradient(
-        135deg,
-        #0f172a 0%,
-        #111827 50%,
-        #1e293b 100%
-    );
+    background:
+        radial-gradient(circle at top left, #172554 0%, transparent 30%),
+        radial-gradient(circle at bottom right, #312e81 0%, transparent 25%),
+        linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
 }
 
-.main-title {
+
+/* Header Container */
+.hero-container {
     text-align: center;
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 5px;
-}
-
-.subtitle {
-    text-align: center;
-    color: #94a3b8;
-    font-size: 1.1rem;
-    margin-bottom: 35px;
-}
-
-.info-card {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 16px;
-    padding: 20px;
+    padding: 30px 20px;
     margin-bottom: 25px;
 }
 
-.prediction-card {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 18px;
-    padding: 30px;
-    text-align: center;
-    margin-top: 20px;
+
+/* Eye Logo */
+.eye-logo {
+    font-size: 3.8rem;
+    margin-bottom: 5px;
 }
 
-.prediction-text {
-    font-size: 2.2rem;
+
+/* Main Heading */
+.main-title {
+    font-size: clamp(2.1rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+
+/* Subtitle */
+.subtitle {
+    font-size: 1.1rem;
+    color: #94a3b8;
+}
+
+
+/* Intro Card */
+.info-card {
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.20);
+}
+
+
+/* Intro Heading */
+.info-heading {
+    font-size: 1.4rem;
     font-weight: 700;
+    margin-bottom: 8px;
 }
 
+
+/* Intro Text */
+.info-text {
+    color: #cbd5e1;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+
+/* Result Card */
+.result-card {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(148, 163, 184, 0.20);
+    border-radius: 20px;
+    padding: 32px 20px;
+    text-align: center;
+    margin-top: 15px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Result Icon */
+.result-icon {
+    font-size: 3.2rem;
+}
+
+
+/* Result Label */
+.result-label {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 8px;
+}
+
+
+/* Confidence */
 .confidence-text {
     color: #cbd5e1;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-top: 10px;
 }
 
+
+/* Section Heading */
+.section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+
+/* Upload Area */
+[data-testid="stFileUploader"] {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 18px;
+    padding: 15px;
+}
+
+
+/* Buttons */
+.stButton > button {
+    width: 100%;
+    min-height: 3.2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+
+/* Metrics */
+[data-testid="stMetric"] {
+    background: rgba(15, 23, 42, 0.70);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 15px;
+    padding: 18px;
+}
+
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: #080f1e;
+}
+
+
+/* Horizontal Line */
+hr {
+    border-color: rgba(148, 163, 184, 0.15);
+}
+
+
+/* Footer */
 .footer {
     text-align: center;
     color: #64748b;
-    margin-top: 50px;
     font-size: 0.9rem;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
-.stButton > button {
-    width: 100%;
-    height: 3rem;
-    border-radius: 10px;
-    font-weight: bold;
-}
 
-[data-testid="stFileUploader"] {
-    background: rgba(255, 255, 255, 0.04);
-    padding: 20px;
-    border-radius: 15px;
+/* Mobile Optimization */
+@media (max-width: 768px) {
+
+    .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .hero-container {
+        padding: 15px 5px;
+    }
+
+    .eye-logo {
+        font-size: 3rem;
+    }
+
+    .main-title {
+        font-size: 2.2rem;
+    }
+
+    .info-card {
+        padding: 20px;
+    }
+
+    .result-label {
+        font-size: 1.7rem;
+    }
+
 }
 
 </style>
@@ -104,6 +230,7 @@ st.markdown("""
 # ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent
+
 MODEL_PATH = BASE_DIR / "model.keras"
 
 
@@ -115,7 +242,7 @@ MODEL_PATH = BASE_DIR / "model.keras"
 def load_eye_model():
 
     return tf.keras.models.load_model(
-        MODEL_PATH,
+        str(MODEL_PATH),
         compile=False
     )
 
@@ -123,7 +250,7 @@ def load_eye_model():
 if not MODEL_PATH.exists():
 
     st.error(
-        "model.keras file not found. "
+        "model.keras file was not found. "
         "Place model.keras in the same folder as app.py."
     )
 
@@ -153,57 +280,68 @@ def preprocess_image(uploaded_file):
 
     display_image = image.copy()
 
-    image = image.resize((299, 299))
+    resized_image = image.resize((299, 299))
 
-    img_array = np.asarray(
-        image,
+    image_array = np.asarray(
+        resized_image,
         dtype=np.float32
     )
 
-    img_array = img_array / 255.0
+    image_array = image_array / 255.0
 
-    img_array = np.expand_dims(
-        img_array,
+    image_array = np.expand_dims(
+        image_array,
         axis=0
     )
 
-    return display_image, img_array
+    return display_image, image_array
 
 
 # ============================================================
 # PREDICTION FUNCTION
 # ============================================================
 
-def predict_eye(img_array):
+def predict_eye(image_array):
 
     result = model.predict(
-        img_array,
+        image_array,
         verbose=0
     )
 
-    probability = float(result[0][0])
+    male_probability = float(result[0][0])
+
+    female_probability = 1.0 - male_probability
 
 
-    # CLASS MAPPING
-    #
+    # Class Mapping:
     # Female = 0
-    # Male   = 1
+    # Male = 1
 
 
-    if probability >= 0.5:
+    if male_probability >= 0.5:
 
-        predicted_class = "♂️ 👁️ Male Eye"
+        predicted_class = "Male Eye"
 
-        confidence = probability
+        result_icon = "♂️ 👁️"
+
+        confidence = male_probability
 
     else:
 
-        predicted_class = "♀️ 👁️ Female Eye"
+        predicted_class = "Female Eye"
 
-        confidence = 1 - probability
+        result_icon = "♀️ 👁️"
+
+        confidence = female_probability
 
 
-    return predicted_class, confidence, probability
+    return (
+        predicted_class,
+        result_icon,
+        confidence,
+        female_probability,
+        male_probability
+    )
 
 
 # ============================================================
@@ -212,97 +350,81 @@ def predict_eye(img_array):
 
 with st.sidebar:
 
-    st.title("👁️ Eye Classifier")
+    st.markdown("## 👁️ Eye Detection")
 
-    st.markdown("---")
+    st.caption("CNN Image Classification Project")
 
-
-    st.subheader("About")
-
-    st.write(
-        """
-        This application uses a Convolutional Neural Network
-        (CNN) to classify an uploaded eye image into:
-
-        ♂️ 👁️ Male Eye
-
-        ♀️ 👁️ Female Eye
-        """
-    )
+    st.divider()
 
 
-    st.markdown("---")
-
-
-    st.subheader("How to Use")
+    st.markdown("### About")
 
     st.write(
-        """
-        1. Upload a clear eye image.
-
-        2. Use JPG, JPEG, or PNG format.
-
-        3. Click Predict Eye Class.
-
-        4. View the prediction and confidence score.
-        """
+        "This application uses a trained Convolutional "
+        "Neural Network to classify an uploaded eye image "
+        "as a Male Eye or Female Eye."
     )
 
 
-    st.markdown("---")
+    st.divider()
 
-    st.caption(
-        "CNN-Based Eye Image Classification Project"
-    )
+
+    st.markdown("### Classes")
+
+    st.markdown("**♂️ 👁️ Male Eye**")
+
+    st.markdown("**♀️ 👁️ Female Eye**")
+
+
+    st.divider()
+
+
+    st.markdown("### How to Use")
+
+    st.write("1. Upload a clear eye image.")
+
+    st.write("2. Click the Predict Eye Class button.")
+
+    st.write("3. View the predicted class.")
+
+    st.write("4. Check confidence and probabilities.")
+
+
+    st.divider()
+
+
+    st.markdown("### Supported Formats")
+
+    st.write("JPG • JPEG • PNG")
 
 
 # ============================================================
-# MAIN HEADER
+# HERO SECTION
 # ============================================================
 
-st.markdown(
-    """
-    <div class="main-title">
-
-        👁️ Male & Female Eye Classifier
-
-    </div>
-
-
-    <div class="subtitle">
-
-        CNN-Based Eye Image Classification System
-
-    </div>
-    """,
-
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="hero-container">
+    <div class="eye-logo">👁️</div>
+    <div class="main-title">Male Female Eye Detection</div>
+    <div class="subtitle">AI-Powered Eye Image Classification using Convolutional Neural Networks</div>
+</div>
+""", unsafe_allow_html=True)
 
 
 # ============================================================
 # INFORMATION CARD
 # ============================================================
 
-st.markdown(
-    """
-    <div class="info-card">
-
-        <h3>Upload an Eye Image</h3>
-
-        <p>
-
-        Upload a clear eye image and let the trained
-        Convolutional Neural Network analyze the image
-        and classify it as a Male Eye or Female Eye.
-
-        </p>
-
+st.markdown("""
+<div class="info-card">
+    <div class="info-heading">Upload an Eye Image</div>
+    <div class="info-text">
+        Upload a clear eye image and the trained CNN model
+        will analyze its visual features and classify it
+        as a Male Eye or Female Eye.
     </div>
-    """,
-
-    unsafe_allow_html=True
-)
+</div>
+""", unsafe_allow_html=True)
 
 
 # ============================================================
@@ -310,19 +432,13 @@ st.markdown(
 # ============================================================
 
 uploaded_file = st.file_uploader(
-
     "Choose an Eye Image",
-
-    type=[
-        "jpg",
-        "jpeg",
-        "png"
-    ]
+    type=["jpg", "jpeg", "png"]
 )
 
 
 # ============================================================
-# IMAGE + PREDICTION
+# MAIN APPLICATION
 # ============================================================
 
 if uploaded_file is not None:
@@ -334,109 +450,124 @@ if uploaded_file is not None:
         )
 
 
-        left_column, right_column = st.columns(
+        image_column, result_column = st.columns(
             [1, 1],
             gap="large"
         )
 
 
+        # ====================================================
         # IMAGE COLUMN
+        # ====================================================
 
-        with left_column:
+        with image_column:
 
-            st.subheader("Uploaded Eye Image")
-
-            st.image(
-                display_image,
-                use_container_width=True
+            st.markdown(
+                '<div class="section-title">Uploaded Image</div>',
+                unsafe_allow_html=True
             )
 
 
-        # PREDICTION COLUMN
+            # Controlled image width
 
-        with right_column:
+            image_space_left, image_space_center, image_space_right = (
+                st.columns([0.08, 0.84, 0.08])
+            )
 
-            st.subheader("Prediction Result")
+
+            with image_space_center:
+
+                st.image(
+                    display_image,
+                    use_container_width=True
+                )
 
 
-            if st.button(
+        # ====================================================
+        # RESULT COLUMN
+        # ====================================================
+
+        with result_column:
+
+            st.markdown(
+                '<div class="section-title">Prediction Result</div>',
+                unsafe_allow_html=True
+            )
+
+
+            predict_button = st.button(
                 "🔍 Predict Eye Class",
                 type="primary"
-            ):
+            )
 
+
+            if predict_button:
 
                 with st.spinner(
-                    "Analyzing the eye image..."
+                    "Analyzing the uploaded eye image..."
                 ):
 
+                    (
+                        predicted_class,
+                        result_icon,
+                        confidence,
+                        female_probability,
+                        male_probability
 
-                    predicted_class, confidence, raw_probability = (
-                        predict_eye(processed_image)
-                    )
+                    ) = predict_eye(processed_image)
 
 
                 st.markdown(
                     f"""
-                    <div class="prediction-card">
-
-                        <div class="prediction-text">
-
-                            {predicted_class}
-
-                        </div>
-
-
-                        <div class="confidence-text">
-
-                            Confidence: {confidence * 100:.2f}%
-
-                        </div>
-
-                    </div>
-                    """,
-
+<div class="result-card">
+    <div class="result-icon">{result_icon}</div>
+    <div class="result-label">{predicted_class}</div>
+    <div class="confidence-text">Confidence: {confidence * 100:.2f}%</div>
+</div>
+""",
                     unsafe_allow_html=True
                 )
 
 
-                st.progress(
-                    float(confidence)
-                )
+                st.write("")
+
+                st.progress(float(confidence))
 
 
-                st.markdown(
-                    "### Model Output Details"
-                )
+                st.markdown("### Prediction Probabilities")
 
 
-                female_column, male_column = st.columns(2)
+                probability_col1, probability_col2 = st.columns(2)
 
 
-                with female_column:
+                with probability_col1:
 
                     st.metric(
-
-                        "♀️ Female Probability",
-
-                        f"{(1 - raw_probability) * 100:.2f}%"
+                        "♀️ Female Eye",
+                        f"{female_probability * 100:.2f}%"
                     )
 
 
-                with male_column:
+                with probability_col2:
 
                     st.metric(
-
-                        "♂️ Male Probability",
-
-                        f"{raw_probability * 100:.2f}%"
+                        "♂️ Male Eye",
+                        f"{male_probability * 100:.2f}%"
                     )
+
+
+            else:
+
+                st.info(
+                    "Click Predict Eye Class to analyze "
+                    "the uploaded image."
+                )
 
 
     except Exception as error:
 
         st.error(
-            "Unable to process the uploaded image. "
-            "Upload a valid JPG, JPEG, or PNG image."
+            "The uploaded image could not be processed."
         )
 
         st.exception(error)
@@ -445,7 +576,7 @@ if uploaded_file is not None:
 else:
 
     st.info(
-        "Upload an eye image to start classification."
+        "Upload a JPG, JPEG, or PNG eye image to start prediction."
     )
 
 
@@ -453,35 +584,34 @@ else:
 # MODEL INFORMATION
 # ============================================================
 
-st.markdown("---")
+st.divider()
+
+st.markdown("## Model Information")
 
 
-st.subheader("Model Information")
+model_col1, model_col2, model_col3 = st.columns(3)
 
 
-col1, col2, col3 = st.columns(3)
-
-
-with col1:
+with model_col1:
 
     st.metric(
-        "Model Type",
+        "Architecture",
         "CNN"
     )
 
 
-with col2:
+with model_col2:
 
     st.metric(
-        "Input Size",
+        "Input Resolution",
         "299 × 299"
     )
 
 
-with col3:
+with model_col3:
 
     st.metric(
-        "Classes",
+        "Output Classes",
         "2"
     )
 
@@ -490,14 +620,8 @@ with col3:
 # FOOTER
 # ============================================================
 
-st.markdown(
-    """
-    <div class="footer">
-
-        Eye Gender Classification System • Streamlit • TensorFlow
-
-    </div>
-    """,
-
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="footer">
+    Male Female Eye Detection • Built with Streamlit and TensorFlow
+</div>
+""", unsafe_allow_html=True)
