@@ -1,7 +1,7 @@
 import streamlit as st
+import tensorflow as tf
 import numpy as np
 from PIL import Image
-from tensorflow.keras.models import load_model
 from pathlib import Path
 
 
@@ -10,7 +10,7 @@ from pathlib import Path
 # ============================================================
 
 st.set_page_config(
-    page_title="Eye Gender Classifier",
+    page_title="Male Female Eye Detection",
     page_icon="👁️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -65,13 +65,14 @@ st.markdown("""
 }
 
 .prediction-text {
-    font-size: 2.3rem;
-    font-weight: bold;
+    font-size: 2.2rem;
+    font-weight: 700;
 }
 
 .confidence-text {
-    font-size: 1.2rem;
     color: #cbd5e1;
+    font-size: 1.2rem;
+    margin-top: 10px;
 }
 
 .footer {
@@ -83,8 +84,8 @@ st.markdown("""
 
 .stButton > button {
     width: 100%;
-    border-radius: 10px;
     height: 3rem;
+    border-radius: 10px;
     font-weight: bold;
 }
 
@@ -112,23 +113,33 @@ MODEL_PATH = BASE_DIR / "model.keras"
 
 @st.cache_resource
 def load_eye_model():
-    return load_model(MODEL_PATH, compile=False)
+
+    return tf.keras.models.load_model(
+        MODEL_PATH,
+        compile=False
+    )
 
 
 if not MODEL_PATH.exists():
+
     st.error(
         "model.keras file not found. "
-        "Please place model.keras in the same folder as app.py."
+        "Place model.keras in the same folder as app.py."
     )
+
     st.stop()
 
 
 try:
+
     model = load_eye_model()
 
 except Exception as error:
+
     st.error("Unable to load model.keras.")
+
     st.exception(error)
+
     st.stop()
 
 
@@ -136,19 +147,27 @@ except Exception as error:
 # IMAGE PREPROCESSING
 # ============================================================
 
-def preprocess_image(uploaded_image):
+def preprocess_image(uploaded_file):
 
-    img = Image.open(uploaded_image).convert("RGB")
+    image = Image.open(uploaded_file).convert("RGB")
 
-    img = img.resize((299, 299))
+    display_image = image.copy()
 
-    img_array = np.asarray(img, dtype=np.float32)
+    image = image.resize((299, 299))
+
+    img_array = np.asarray(
+        image,
+        dtype=np.float32
+    )
 
     img_array = img_array / 255.0
 
-    img_array = np.expand_dims(img_array, axis=0)
+    img_array = np.expand_dims(
+        img_array,
+        axis=0
+    )
 
-    return img, img_array
+    return display_image, img_array
 
 
 # ============================================================
@@ -157,23 +176,32 @@ def preprocess_image(uploaded_image):
 
 def predict_eye(img_array):
 
-    result = model.predict(img_array, verbose=0)
+    result = model.predict(
+        img_array,
+        verbose=0
+    )
 
     probability = float(result[0][0])
 
-    # Class Mapping:
+
+    # CLASS MAPPING
+    #
     # Female = 0
-    # Male = 1
+    # Male   = 1
+
 
     if probability >= 0.5:
 
         predicted_class = "♂️ 👁️ Male Eye"
+
         confidence = probability
 
     else:
 
         predicted_class = "♀️ 👁️ Female Eye"
+
         confidence = 1 - probability
+
 
     return predicted_class, confidence, probability
 
@@ -188,13 +216,13 @@ with st.sidebar:
 
     st.markdown("---")
 
+
     st.subheader("About")
 
     st.write(
         """
         This application uses a Convolutional Neural Network
-        (CNN) to classify an uploaded eye image into one of
-        two categories:
+        (CNN) to classify an uploaded eye image into:
 
         ♂️ 👁️ Male Eye
 
@@ -202,7 +230,9 @@ with st.sidebar:
         """
     )
 
+
     st.markdown("---")
+
 
     st.subheader("How to Use")
 
@@ -212,53 +242,65 @@ with st.sidebar:
 
         2. Use JPG, JPEG, or PNG format.
 
-        3. Click the Predict Eye Class button.
+        3. Click Predict Eye Class.
 
-        4. View the predicted class and confidence score.
+        4. View the prediction and confidence score.
         """
     )
 
+
     st.markdown("---")
 
-    st.caption("CNN-Based Eye Image Classification Project")
+    st.caption(
+        "CNN-Based Eye Image Classification Project"
+    )
 
 
 # ============================================================
-# HEADER
+# MAIN HEADER
 # ============================================================
 
 st.markdown(
     """
     <div class="main-title">
+
         👁️ Male & Female Eye Classifier
+
     </div>
 
+
     <div class="subtitle">
+
         CNN-Based Eye Image Classification System
+
     </div>
     """,
+
     unsafe_allow_html=True
 )
 
 
 # ============================================================
-# INFORMATION SECTION
+# INFORMATION CARD
 # ============================================================
 
 st.markdown(
     """
     <div class="info-card">
 
-    <h3>Upload an Eye Image</h3>
+        <h3>Upload an Eye Image</h3>
 
-    <p>
-    Upload a clear eye image. The trained CNN model will
-    analyze the image and classify it as a Male Eye or
-    Female Eye.
-    </p>
+        <p>
+
+        Upload a clear eye image and let the trained
+        Convolutional Neural Network analyze the image
+        and classify it as a Male Eye or Female Eye.
+
+        </p>
 
     </div>
     """,
+
     unsafe_allow_html=True
 )
 
@@ -268,13 +310,19 @@ st.markdown(
 # ============================================================
 
 uploaded_file = st.file_uploader(
+
     "Choose an Eye Image",
-    type=["jpg", "jpeg", "png"]
+
+    type=[
+        "jpg",
+        "jpeg",
+        "png"
+    ]
 )
 
 
 # ============================================================
-# IMAGE AND PREDICTION SECTION
+# IMAGE + PREDICTION
 # ============================================================
 
 if uploaded_file is not None:
@@ -285,13 +333,14 @@ if uploaded_file is not None:
             uploaded_file
         )
 
+
         left_column, right_column = st.columns(
             [1, 1],
             gap="large"
         )
 
 
-        # DISPLAY IMAGE
+        # IMAGE COLUMN
 
         with left_column:
 
@@ -303,18 +352,23 @@ if uploaded_file is not None:
             )
 
 
-        # DISPLAY PREDICTION
+        # PREDICTION COLUMN
 
         with right_column:
 
             st.subheader("Prediction Result")
+
 
             if st.button(
                 "🔍 Predict Eye Class",
                 type="primary"
             ):
 
-                with st.spinner("Analyzing the eye image..."):
+
+                with st.spinner(
+                    "Analyzing the eye image..."
+                ):
+
 
                     predicted_class, confidence, raw_probability = (
                         predict_eye(processed_image)
@@ -325,43 +379,55 @@ if uploaded_file is not None:
                     f"""
                     <div class="prediction-card">
 
-                    <div class="prediction-text">
-                        {predicted_class}
-                    </div>
+                        <div class="prediction-text">
 
-                    <br>
+                            {predicted_class}
 
-                    <div class="confidence-text">
-                        Confidence: {confidence * 100:.2f}%
-                    </div>
+                        </div>
+
+
+                        <div class="confidence-text">
+
+                            Confidence: {confidence * 100:.2f}%
+
+                        </div>
 
                     </div>
                     """,
+
                     unsafe_allow_html=True
                 )
 
 
-                st.progress(float(confidence))
+                st.progress(
+                    float(confidence)
+                )
 
 
-                st.markdown("### Model Output Details")
+                st.markdown(
+                    "### Model Output Details"
+                )
 
 
-                col1, col2 = st.columns(2)
+                female_column, male_column = st.columns(2)
 
 
-                with col1:
+                with female_column:
 
                     st.metric(
+
                         "♀️ Female Probability",
+
                         f"{(1 - raw_probability) * 100:.2f}%"
                     )
 
 
-                with col2:
+                with male_column:
 
                     st.metric(
+
                         "♂️ Male Probability",
+
                         f"{raw_probability * 100:.2f}%"
                     )
 
@@ -370,7 +436,7 @@ if uploaded_file is not None:
 
         st.error(
             "Unable to process the uploaded image. "
-            "Please upload a valid JPG, JPEG, or PNG image."
+            "Upload a valid JPG, JPEG, or PNG image."
         )
 
         st.exception(error)
@@ -378,7 +444,9 @@ if uploaded_file is not None:
 
 else:
 
-    st.info("Upload an eye image to start classification.")
+    st.info(
+        "Upload an eye image to start classification."
+    )
 
 
 # ============================================================
@@ -387,7 +455,9 @@ else:
 
 st.markdown("---")
 
+
 st.subheader("Model Information")
+
 
 col1, col2, col3 = st.columns(3)
 
@@ -417,17 +487,6 @@ with col3:
 
 
 # ============================================================
-# DISCLAIMER
-# ============================================================
-
-st.warning(
-    "Prediction accuracy depends on the performance of the "
-    "trained model and the quality of the uploaded image. "
-    "This application is intended for educational purposes."
-)
-
-
-# ============================================================
 # FOOTER
 # ============================================================
 
@@ -439,5 +498,6 @@ st.markdown(
 
     </div>
     """,
+
     unsafe_allow_html=True
 )
