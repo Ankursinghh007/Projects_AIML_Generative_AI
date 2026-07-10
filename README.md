@@ -31,6 +31,6 @@ Project_09(Male_Female_Eye_Detection):-
 https://projectsaimlgenerativeai-hasky9avc428xkv5vwbonq.streamlit.app/
 
 Project_10(Chatbot for Health Insurance):-
-https://health-insurance-policy-chatbot-dawr94fntqzffy4cgri8qt.streamlit.app/
 
+https://health-insurance-policy-chatbot-dawr94fntqzffy4cgri8qt.streamlit.app/
 
