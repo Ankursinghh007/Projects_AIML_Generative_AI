@@ -4,7 +4,7 @@ https://projectsaimlgenerativeai-3zxtbvtrv7rf7znfvsajny.streamlit.app/
 
 Project_03(Canada's Capital yearwise Income) URL :-
 
-https://projectsaimlgenerativeai-5dls3cjvdyuhodqqtgsitu.streamlit.app/
+https://projectsaimlgenerativeai-axtgdwbbcbrmdbacnx8i5b.streamlit.app/
 
 Project_04(Employee Retention) URL :-
 
