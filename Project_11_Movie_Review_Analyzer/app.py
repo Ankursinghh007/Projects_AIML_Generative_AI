@@ -212,7 +212,7 @@ else:
 # ==================================================
 
 st.markdown(
-    '<div class="main-title">🎬 AI Movie Review Analyzer</div>',
+    '<div class="main-title">🎬 Movie Review Analyzer</div>',
     unsafe_allow_html=True
 )
 
