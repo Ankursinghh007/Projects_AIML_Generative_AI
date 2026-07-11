@@ -4,7 +4,7 @@ https://projectsaimlgenerativeai-3zxtbvtrv7rf7znfvsajny.streamlit.app/
 
 Project_03(Canada's Capital yearwise Income) URL :-
 
-https://projectsaimlgenerativeai-axtgdwbbcbrmdbacnx8i5b.streamlit.app/
+https://projectsaimlgenerativeai-bwuyx9vappaf7hg46mvqtut.streamlit.app/
 
 Project_04(Employee Retention) URL :-
 
@@ -34,3 +34,6 @@ Project_10(Chatbot for Health Insurance):-
 
 https://health-insurance-policy-chatbot-dawr94fntqzffy4cgri8qt.streamlit.app/
 
+Project_11(Movie_Review_Analyzer):-
+
+https://projectsaimlgenerativeai-3xddbjkdhpvivgvpvzdvr8.streamlit.app/
